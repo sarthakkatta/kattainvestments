@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Katta Investments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        /* Prevent scroll when mobile nav is open */
+        body.nav-open {
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 80px;
+        }
+
+        .logo a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .logo img {
+            width: 180px;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding-bottom: 5px;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: #ff6b35;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        /* --- Mobile Navigation Styles (Copied from testimonials.html) --- */
+        .nav-toggle {
+            display: none; /* Hidden by default */
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1002; /* Above everything */
+            position: relative;
+        }
+
+        .hamburger {
+            display: block;
+            position: relative;
+            width: 1.8em; /* Slightly smaller */
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: transform 0.3s ease, top 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger::before {
+            top: -0.6em;
+        }
+
+        .hamburger::after {
+            bottom: -0.6em;
+        }
+
+        /* Burger 'X' animation when active */
+        .nav-open .hamburger {
+            background: transparent; /* Hide middle bar */
+        }
+
+        .nav-open .hamburger::before {
+            top: 0;
+            transform: rotate(45deg);
+            background: #333;
+        }
+
+        .nav-open .hamburger::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+            opacity: 1;
+            background: #333;
+        }
+        /* --- End Mobile Nav Styles --- */
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            padding-top: 140px; /* Increased top padding */
+            padding-bottom: 60px;
+            overflow: hidden;
+            margin-top: 80px; /* Adjusted for fixed header height */
+        }
+
+        .hero-section h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 100px;
+            gap: 60px;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .service-image {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .service-content {
+            flex: 1.2;
+            padding: 20px;
+        }
+
+        .service-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .service-content h2 span {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .service-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+            text-align: justify;
+        }
+
+        .service-content .highlight {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .service-content .italic {
+            font-style: italic;
+            color: #666;
+        }
+
+        .sip-benefits {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 { margin-bottom: 1rem; }
+        .footer-section p, .footer-section a { color: #ccc; text-decoration: none; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: #ff6b35; }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            /* Show mobile nav toggle */
+            .nav-toggle {
+                display: block;
+            }
+
+            /* Hide desktop nav */
+            .nav-menu {
+                display: none;
+            }
+            
+            /* Mobile Nav Menu Container */
+            .nav-primary {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(8px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease-out;
+                z-index: 1001; /* Below burger, above content */
+                
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .nav-open .nav-primary {
+                transform: translateX(0);
+            }
+            
+            /* Mobile Nav Menu Items */
+            .nav-open .nav-primary .nav-menu {
+                display: flex;
+                flex-direction: column;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .nav-open .nav-primary .nav-menu li a {
+                font-size: 1.5rem;
+                color: #333;
+                font-weight: bold;
+                padding: 0.5rem 1rem;
+            }
+            
+            .nav-open .nav-primary .nav-menu li a:hover,
+            .nav-open .nav-primary .nav-menu li a.active {
+                color: #ff6b35;
+                border-bottom: 2px solid #ff6b35;
+            }
+            /* End of new mobile nav styles */
+
+            .hero-section {
+                padding: 120px 20px 40px 20px;
+            }
+            .hero-section h1 { font-size: 2.2rem; }
+            .hero-section p { font-size: 1rem; }
+
+            .services-section { padding: 60px 0; }
+            .service-item {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 30px;
+                padding: 40px 20px;
+                margin-bottom: 60px;
+            }
+            .service-content p { text-align: left; }
+            .service-image { max-width: 100%; }
+            .service-content h2 { font-size: 1.8rem; }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .hero-section h1 { font-size: 1.8rem; }
+            .service-content { padding: 10px; }
+            .service-item { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index4.html">
+                    <img src="logo.jpg" alt="Katta Investments Logo">
+                </a>
+            </div>
+            <nav class="nav-primary">
+                <ul class="nav-menu">
+                    <li><a href="index4.html">Home</a></li>
+                    <li><a href="service.html" class="active">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us!</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Empowering Your Financial Future with Smart Solutions</h1>
+            <p>Explore our expert-driven services designed to help you grow, protect, and manage your wealth with confidence</p>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="container">
+            
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="service1.avif" alt="Mutual Funds Investment" />
+                </div>
+                <div class="service-content">
+                    <h2>Mutual Funds - <span>Katta Investments</span></h2>
+                    <p>Investing in <span class="highlight">Mutual Funds</span> with <span class="highlight">Katta Investments</span> is a smart way to grow your wealth. Mutual funds pool money from multiple investors to create a diversified portfolio managed by financial experts. Whether you're seeking high returns through <span class="italic">Equity Funds</span>, stability via <span class="italic">Debt Funds</span>, or a balanced approach with <span class="italic">Hybrid Funds</span>, we have the right solution for you. For tax savings, our <span class="italic">ELSS Funds</span> provide the added advantage of deductions under Section 80C.</p>
+                    <p>By investing in mutual funds, you enjoy professional management, reduced risk through diversification, and higher growth potential than traditional savings methods. Plus, mutual funds are flexible - easy to buy, sell, and track online.</p>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="service2.avif" alt="Systematic Investment Plan" />
+                </div>
+                <div class="service-content">
+                    <h2>Systematic Investment Plan - <span>Katta Investments</span></h2>
+                    <p>Investing through a <span class="highlight">Systematic Investment Plan (SIP)</span> with <span class="highlight">Katta Investments</span> is a smart and disciplined way to build wealth over time. SIP allows you to invest a fixed amount in mutual funds at regular intervals, helping you benefit from rupee-cost averaging and the power of compounding.</p>
+                    <div class="sip-benefits">
+                        <p>With SIP, you can start small - investing as little as ₹500 per month - making it accessible for everyone. It eliminates the need to time the market, reducing the impact of market volatility. Over time, these small investments can grow into significant wealth thanks to consistent contributions and compounding returns.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="service3.avif" alt="Health Insurance Coverage" />
+                </div>
+                <div class="service-content">
+                    <h2>Health Insurance - <span>Katta Investments</span></h2>
+                    <p>Protect your health and secure your future with <span class="highlight">Health Insurance</span> from <span class="highlight">Katta Investments</span>. Health insurance covers medical expenses such as hospitalization, surgeries, and preventive care, ensuring you and your family are financially protected during medical emergencies.</p>
+                    <p>With options like <span class="italic">Individual Plans</span> for personal coverage, <span class="italic">Family Floater Plans</span> for your entire household, and <span class="italic">Critical Illness Insurance</span> for severe conditions like cancer or heart disease, we offer plans tailored to your needs. For elderly individuals, our <span class="italic">Senior Citizen Plans</span> provide comprehensive coverage with added benefits.</p>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="service4.avif" alt="Term Life Insurance" />
+                </div>
+                <div class="service-content">
+                    <h2>Term Insurance - <span>Katta Investments</span></h2>
+                    <p>Ensure your family's financial security with <span class="highlight">Term Insurance</span> from <span class="highlight">Katta Investments</span>. Term insurance is a pure protection plan that offers a high life cover at an affordable premium, providing crucial support to your loved ones in case of an unfortunate event.</p>
+                    <p>With term insurance, your family receives a substantial payout that can help manage daily expenses, debts, and future financial goals. It also offers tax benefits under Section 80C, making it a smart investment for both protection and savings.</p>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="service5.avif" alt="Financial Planning Services" />
+                </div>
+                <div class="service-content">
+                    <h2>Financial Planning - <span>Katta Investments</span></h2>
+                    <p>Achieve your financial goals with expert <span class="highlight">Financial Planning</span> from <span class="highlight">Katta Investments</span>. Financial planning is the key to managing your money wisely, helping you build wealth, secure your future, and achieve milestones like education, homeownership, and retirement.</p>
+                    <p>Our comprehensive financial planning services include <span class="italic">Goal-Based Investment Strategies</span>, <span class="italic">Retirement & Pension Planning</span>, <span class="italic">Tax Optimization</span> and <span class="italic">Risk Management</span> through insurance. By creating a personalized roadmap, we ensure your savings and investments align with your life goals.</p>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="service6.avif" alt="Demat Account Services" />
+                </div>
+                <div class="service-content">
+                    <h2>Demat Account - <span>Katta Investments</span></h2>
+                    <p>Simplify your stock market investments with a <span class="highlight">Demat Account</span> from <span class="highlight">Katta Investments</span>. A <span class="highlight">Demat (Dematerialized) Account</span> securely holds your shares, bonds, and other securities in digital form, making trading safer, faster, and more convenient.</p>
+                    <p>With a Demat account, you enjoy secure and paperless transactions, reducing the risk of theft, forgery, or document loss. It allows you to easily buy, sell, and manage your investments online, ensuring seamless participation in the stock market. Additionally, a Demat account is essential for investing in IPOs and offers a hassle-free way to track your portfolio.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>Investments</h3><p>Professional financial services for smart investments.</p></div>
+                <div class="footer-section"><h3>CONTACT</h3><p>+91-8750056566</p><p>kattainvestments@gmail.com</p></div>
+                <div class="footer-section"><h3>SUPPORT</h3><a href="privacy.html">PRIVACY POLICY</a><br><a href="faqs.html">FAQ</a></div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025. All rights reserved.</p>
+                <p>@marketed by Sarthak Marketing</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+        
+            // --- NEW MOBILE NAVIGATION LOGIC (Copied from testimonials.html) ---
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelectorAll('.nav-primary .nav-menu a');
+
+            navToggle.addEventListener('click', () => {
+                document.body.classList.toggle('nav-open');
+            });
+
+            // Close menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    document.body.classList.remove('nav-open');
+                    
+                    // Handle smooth scroll for hash links,
+                    // letting external links behave normally
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        // Let the existing GSAP smooth scroll handle this
+                    } else if (!href.startsWith('http') && !href.startsWith('mailto')) {
+                         // This is for relative links like "index4.html"
+                         // We don't preventDefault, just close the menu
+                    }
+                });
+            });
+            // --- END NEW MOBILE NAVIGATION LOGIC ---
+            
+            // Menu items stagger
+            gsap.fromTo(".nav-menu li", 
+                { opacity: 0, y: -30 },
+                { duration: 0.6, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out", delay: 1.2 }
+            );
+
+            gsap.fromTo(".logo img", 
+                { opacity: 0, y: -30 },
+                { duration: 0.6, opacity: 1, y: 0, ease: "power2.out", delay: 0.5 }
+            );
+
+            // Service items scroll animations
+            gsap.utils.toArray(".service-item").forEach((item, index) => {
+                const image = item.querySelector(".service-image");
+                const content = item.querySelector(".service-content");
+                const heading = content.querySelector("h2");
+                const paragraphs = content.querySelectorAll("p");
+                const sipBenefit = content.querySelector(".sip-benefits");
+                const isEven = index % 2 === 1;
+
+                // Main service item reveal
+                gsap.fromTo(item, 
+                    { opacity: 0, y: 100, rotationX: -15 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        rotationX: 0,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+
+                // Image animation with bounce
+                gsap.fromTo(image, 
+                    { opacity: 0, scale: 0.6, rotation: isEven ? -15 : 15 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        rotation: 0,
+                        duration: 1.5,
+                        ease: "elastic.out(1, 0.5)",
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 75%",
+                            end: "bottom 25%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+
+                // Content slide in from sides
+                gsap.fromTo(content, 
+                    { opacity: 0, x: isEven ? -80 : 80, skewX: isEven ? -5 : 5 },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        skewX: 0,
+                        duration: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 70%",
+                            end: "bottom 30%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+
+                // Heading typewriter effect
+                gsap.fromTo(heading, 
+                    { opacity: 0, y: 40, letterSpacing: "0.2em" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        letterSpacing: "0em",
+                        duration: 0.8,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 65%",
+                            end: "bottom 35%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+
+                // Paragraphs cascade animation
+                gsap.fromTo(paragraphs, 
+                    { opacity: 0, y: 30, filter: "blur(5px)" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 0.8,
+                        stagger: 0.3,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 60%",
+                            end: "bottom 40%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+
+                // SIP benefits special box animation
+                if (sipBenefit) {
+                    gsap.fromTo(sipBenefit, 
+                        { opacity: 0, x: 50, scale: 0.9 },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            scale: 1,
+                            duration: 1,
+                            ease: "back.out(1.7)",
+                            scrollTrigger: {
+                                trigger: sipBenefit,
+                                start: "top 75%",
+                                end: "bottom 25%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                }
+
+                // Enhanced hover animations
+                item.addEventListener('mouseenter', () => {
+                    gsap.to(item, {
+                        scale: 1.03,
+                        rotationY: 2,
+                        z: 50,
+                        boxShadow: "0 25px 50px rgba(0,0,0,0.2)",
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    
+                    gsap.to(image.querySelector('img'), {
+                        scale: 1.1,
+                        filter: "brightness(1.1)",
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(item, {
+                        scale: 1,
+                        rotationY: 0,
+                        z: 0,
+                        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    
+                    gsap.to(image.querySelector('img'), {
+                        scale: 1,
+                        filter: "brightness(1)",
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                });
+            });
+
+            // Parallax hero effect
+            gsap.to(".hero-section", {
+                yPercent: -30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero-section",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+
+            // Highlight text reveal
+            gsap.utils.toArray(".highlight").forEach(highlight => {
+                gsap.fromTo(highlight, 
+                    {
+                        backgroundSize: "0% 100%",
+                        backgroundImage: "linear-gradient(120deg, rgba(255, 107, 53, 0.3) 0%, rgba(255, 107, 53, 0.3) 100%)",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "0% 100%"
+                    },
+                    {
+                        backgroundSize: "100% 100%",
+                        duration: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: highlight,
+                            start: "top 80%",
+                            end: "bottom 20%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // Floating animation for service images
+            gsap.utils.toArray(".service-image img").forEach(img => {
+                gsap.to(img, {
+                    y: "random(-10, 10)",
+                    rotation: "random(-2, 2)",
+                    duration: "random(3, 5)",
+                    ease: "power1.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            gsap.from("body", {
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>

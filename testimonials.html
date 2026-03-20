@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Katta Investments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Include ScrollToPlugin for smooth scrolling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Prevent scroll when mobile nav is open */
+        body.nav-open {
+            overflow: hidden;
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.5rem 0; /* Added padding for consistent height */
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            min-height: 70px; /* Ensure a minimum height */
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        /* Responsive logo image */
+        .logo img {
+            width: 200px; /* Desktop width */
+            height: auto;
+            display: block;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0; /* Add padding for better touch */
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: #ff6b35;
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        /* --- Mobile Navigation Styles --- */
+        .nav-toggle {
+            display: none; /* Hidden by default */
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1002; /* Above everything */
+            position: relative;
+        }
+
+        .hamburger {
+            display: block;
+            position: relative;
+            width: 1.8em; /* Slightly smaller */
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: transform 0.3s ease, top 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger::before {
+            top: -0.6em;
+        }
+
+        .hamburger::after {
+            bottom: -0.6em;
+        }
+
+        /* Burger 'X' animation when active */
+        .nav-open .hamburger {
+            background: transparent; /* Hide middle bar */
+        }
+
+        .nav-open .hamburger::before {
+            top: 0;
+            transform: rotate(45deg);
+            background: #333;
+        }
+
+        .nav-open .hamburger::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+            opacity: 1;
+            background: #333;
+        }
+        /* --- End Mobile Nav Styles --- */
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b35, #ffa726);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px; /* Default margin-top */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 1rem; /* Add padding for content on small screens */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title span {
+            color: #ff6b35;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b35, #ffa726);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            flex-shrink: 0; /* Prevent avatar from shrinking */
+            overflow: hidden;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .testimonial-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .testimonial-stars {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3rem;
+            opacity: 0.1;
+            color: white;
+        }
+
+        /* Video Testimonials Section */
+        .video-testimonials {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .video-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #ff6b35;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .video-info {
+            padding: 25px;
+        }
+
+        .video-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .video-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px; /* Add horizontal padding */
+            background: linear-gradient(135deg, #ff6b35, #ffa726);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Responsive Design */
+
+        /* Tablet */
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo img {
+                width: 160px; /* Smaller logo */
+            }
+            
+            /* Show mobile nav toggle */
+            .nav-toggle {
+                display: block;
+            }
+
+            /* Hide desktop nav */
+            .nav-menu {
+                display: none;
+            }
+            
+            /* Mobile Nav Menu Container */
+            .nav-primary {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(8px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease-out;
+                z-index: 1001; /* Below burger, above content */
+                
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .nav-open .nav-primary {
+                transform: translateX(0);
+            }
+            
+            /* Mobile Nav Menu Items */
+            .nav-open .nav-primary .nav-menu {
+                display: flex;
+                flex-direction: column;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .nav-open .nav-primary .nav-menu li a {
+                font-size: 1.5rem;
+                color: #333;
+                font-weight: bold;
+                padding: 0.5rem 1rem;
+            }
+            
+            .nav-open .nav-primary .nav-menu li a:hover,
+            .nav-open .nav-primary .nav-menu li a.active {
+                color: #ff6b35;
+                border-bottom: 2px solid #ff6b35;
+            }
+
+            .hero {
+                margin-top: 70px; /* Adjust for smaller header */
+                height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .stats-grid {
+                /* Already 2-col from 992px */
+                gap: 20px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px; /* Slightly smaller gap */
+            }
+
+            .testimonial-card {
+                padding: 25px; /* Smaller padding */
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center; /* Center footer content */
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .container, .nav-container {
+                padding: 0 1rem; /* Smaller padding for containers */
+            }
+
+            .logo img {
+                width: 140px; /* Even smaller logo */
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr; /* Stack stats items */
+            }
+
+            .stat-item {
+                padding: 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-icon {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+            }
+            
+            .testimonials-grid {
+                 /* This is already 1fr, but let's adjust minmax for small screens */
+                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                 gap: 20px;
+            }
+
+            .testimonial-header {
+                /* Stack avatar and info on small screens */
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .testimonial-card {
+                padding: 20px;
+            }
+            
+            .testimonial-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .video-thumbnail {
+                height: 200px;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <!-- Reverted to original logo.jpg -->
+                <img src="logo.jpg" alt="Katta Investments">
+            </div>
+            <!-- Added nav-primary class -->
+            <nav class="nav-primary">
+                <ul class="nav-menu">
+                    <li><a href="index4.html">Home</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us!</a></li>
+                    <li><a href="#testimonials" class="active">Testimonials</a></li>
+                </ul>
+            </nav>
+            <!-- Added Mobile Nav Toggle Button -->
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Client Success Stories</h1>
+            <p>Discover how Katta Investments has transformed the financial lives of our valued clients</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number">350+</div>
+                    <div class="stat-text">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-text">Average Rating</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-text">Success Stories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-text">Satisfaction Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our <span>Clients Say</span></h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="sunny.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3> Sunny Gupta</h3>
+                            <div class="testimonial-role">Audit Officer, Government Department, Bangalore</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Professional, clear, and reliable service from Katta Investments. They deliver advice that is practical and aligned with long-term stability. I appreciate their transparent process, making financial planning far easier for a government professional like me.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="prerna.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Prerna Kohli</h3>
+                            <div class="testimonial-role">Manager, Corporate Sector, Gurgaon</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“My experience with Katta Investments has been productive and insightful. They provided well-researched investment choices and made the process smooth. Their understanding of client needs reflects in every recommendation they make for stable, long-term returns.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="varun.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Dr. Varun Tiwari</h3>
+                            <div class="testimonial-role">Associate Professor, Jaipur</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Katta Investments made investing simple to understand. Ronak Katta guided me with practical suggestions suited to my academic lifestyle. Now, I have a plan that feels achievable, realistic, and easy to maintain alongside my professional commitments.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="rajesh.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Rajesh Samariya</h3>
+                            <div class="testimonial-role">व्यवसायी, बांदीकुई</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“कट्टा इन्वेस्टमेंट्स ने निवेश को सरल और भरोसेमंद बना दिया। उनकी सलाह स्पष्ट और व्यावहारिक है। छोटे शहर में इस स्तर की सेवा मिलना गर्व की बात है, जिससे मैं अपने पैसों को सही दिशा दे पा रहा हूँ।”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="atul.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Atul Jhalani</h3>
+                            <div class="testimonial-role">व्यवसायी, बांदीकुई</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“कट्टा इन्वेस्टमेंट्स और Ronak Katta जी की मार्गदर्शन शैली बेहतरीन है। उन्होंने मेरी जरूरतों के अनुसार सही निवेश विकल्प सुझाए। यह टीम पारदर्शी, समय पर और पेशेवर है, जिससे निवेश का अनुभव भरोसेमंद बनता है।”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="sonal.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Sonal Gupta</h3>
+                            <div class="testimonial-role">Audit Manager, Big 4 Firm, Gurgaon</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Katta Investments understands the market deeply and offers solutions that work. Their planning is structured, backed by research, and tailored to individual needs. They make investing straightforward for busy corporate professionals like me.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="rajkumai.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Dr. Rajkumari Natani</h3>
+                            <div class="testimonial-role">Doctor, Beawar</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Katta Investments has provided clear and balanced investment guidance. Their professional and transparent approach makes decision-making easier. I feel my finances are in safe hands and directed towards sustainable, long-term growth.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="amit.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Amit Khandelwal</h3>
+                            <div class="testimonial-role">Associate Director, Big 4 Firm, Gurgaon</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Strategic, reliable, and clear advice from Katta Investments makes them stand apart. Ronak Katta’s insights, backed by data, align perfectly with my corporate goals. A dependable partner for anyone aiming for disciplined long-term wealth creation.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="manoj.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Manoj Kumar Sharma</h3>
+                            <div class="testimonial-role">एकाउंटेंट, बांदीकुई</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“कट्टा इन्वेस्टमेंट्स से निवेश के बारे में सोचने का नजरिया बदल गया। Ronak Katta जी की सलाह व्यावहारिक और स्पष्ट है। अब मैं अपने वित्तीय फैसलों को लेकर ज्यादा आश्वस्त और संगठित महसूस करता हूँ।”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="ayushi.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Ayushi Vijay</h3>
+                            <div class="testimonial-role">Director, Vijay Group of Institutions, Bandikui</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Katta Investments delivered goal-oriented, trustworthy advice for both personal and institutional needs. Ronak Katta जी’s dedication makes investing simple yet effective. I recommend them for anyone wanting secure, long-term financial planning.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="ankit.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>CA Ankit Katta</h3>
+                            <div class="testimonial-role">Commercial Head, MNC, Noida</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Katta Investments makes investing easy to understand and act on. Their explanations are simple yet backed by strong knowledge. Ronak Katta ji ensures advice matches your goals, blending professionalism with a personal approach.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="sanjay.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Sanjay Pandey</h3>
+                            <div class="testimonial-role">Lawyer, High Court, Rajasthan</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Katta Investments offers honest, practical advice that fits your needs. Mr. Ronak Katta explains clearly, making decisions simple. I recommend them to professionals who want secure, well-planned investments without unnecessary complications.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="vishal.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Vishal Mishra</h3>
+                            <div class="testimonial-role">Software Engineer, Delhi</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“As a software engineer, I appreciate the logical, clear advice from Katta Investments. Mr. Ronak Katta takes time to understand your goals and gives guidance that truly works for smart, effective investment decisions.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="narendra.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Narendra Gupta</h3>
+                            <div class="testimonial-role">Businessman, Jaipur</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Business के साथ सही investments करना चुनौतीपूर्ण था, लेकिन Katta Investments ने SIP और जरूरत पड़ने पर lumpsum के ज़रिए disciplined तरीका दिया। उनकी सलाह भरोसेमंद है, जिससे मैं अब financial future के लिए confident हूँ।”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="punit.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Punit Chachan</h3>
+                            <div class="testimonial-role">Software Engineer, Greater Noida</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Health insurance was confusing, but Katta Investments simplified everything. They guided me to the right plan and made the process smooth, quick, and stress-free. Now I have strong coverage and complete peace of mind.”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="tanuj.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>Tanuj Khandelwal </h3>
+                            <div class="testimonial-role">व्यवसायी, जयपुर</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Insurance के सही option चुनना मुश्किल था, लेकिन Katta Investments ने इसे आसान बना दिया। उनकी insurance knowledge बेहतरीन है और उन्होंने business व family दोनों के लिए सही cover चुनने में मदद की।”</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar"><img src="mp.jpeg" alt=""></div>
+                        <div class="testimonial-info">
+                            <h3>M.P. Gupta</h3>
+                            <div class="testimonial-role">Retired Government Officer</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">“Retirement के बाद funds को सही तरीके से invest करना ज़रूरी था। Katta Investments ने thoughtful plan बनाकर portfolio तैयार किया जिससे returns भी मिलें और risk भी कम हो। अब future को लेकर चिंता नहीं है।”</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials Section (Commented out as in original)
+    <section class="video-testimonials">
+        ...
+    </section> -->
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Financial Journey?</h2>
+            <p>Join hundreds of satisfied clients who trust Katta Investments for their financial success</p>
+            <a href="contact.html" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Investments</h3>
+                    <p>Professional financial services for smart investments.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>CONTACT</h3>
+                    <p>+91-8750056566</p>
+                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7bcb6a3a3b6beb9a1b2a4a3bab2b9a3a497b0bab6bebbf9b4b8ba"><span class="__cf_email__" data-cfemail="f992988d8d9890978f9c8a8d949c978d8ab99e94989095d79a9694">kattainvestments@gmail.com</span></a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>SUPPORT</h3>
+                    <a href="privacy.html">PRIVACY POLICY</a><br>
+                    <a href="faqs.html">FAQ</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025. All rights reserved.</p>
+                <p>@marketed by Sarthak Marketing</p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); // Added ScrollToPlugin
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- NEW MOBILE NAVIGATION LOGIC ---
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelectorAll('.nav-primary .nav-menu a');
+
+            navToggle.addEventListener('click', () => {
+                document.body.classList.toggle('nav-open');
+            });
+
+            // Close menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    document.body.classList.remove('nav-open');
+                    
+                    // Handle smooth scroll for hash links,
+                    // letting external links behave normally
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        // Let the existing GSAP smooth scroll handle this
+                    } else if (!href.startsWith('http') && !href.startsWith('mailto')) {
+                         // This is for relative links like "index4.html"
+                         // We don't preventDefault, just close the menu
+                    }
+                });
+            });
+            // --- END NEW MOBILE NAVIGATION LOGIC ---
+            
+            
+            // --- ALL ORIGINAL GSAP ANIMATIONS (UNCHANGED) ---
+
+            // Navigation menu animation
+            gsap.fromTo(".nav-menu li", 
+                { opacity: 0, y: -30 },
+                { duration: 0.6, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out", delay: 0.3 }
+            );
+
+            gsap.fromTo(".logo img", 
+                { opacity: 0, y: -30 },
+                { duration: 0.6, opacity: 1, y: 0, ease: "power2.out", delay: 0.3 }
+            );
+
+            // Hero section animation
+            gsap.from(".hero-content h1", {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                ease: "power2.out",
+                delay: 0.5
+            });
+
+            gsap.from(".hero-content p", {
+                duration: 1,
+                y: 30,
+                opacity: 0,
+                ease: "power2.out",
+                delay: 0.8
+            });
+
+            // Stats animation with counter
+            gsap.utils.toArray('.stat-item').forEach((stat, index) => {
+                gsap.from(stat, {
+                    scrollTrigger: {
+                        trigger: stat,
+                        start: "top 85%",
+                        end: "bottom 15%",
+                        toggleActions: "play none none reverse"
+                    },
+                    duration: 0.8,
+                    scale: 0.5,
+                    opacity: 0,
+                    ease: "back.out(1.7)",
+                    delay: index * 0.1
+                });
+
+                // Counter animation for numbers
+                const numberElement = stat.querySelector('.stat-number');
+                const finalValue = numberElement.textContent;
+                const isPercentage = finalValue.includes('%');
+                const numValue = parseFloat(finalValue);
+                
+                ScrollTrigger.create({
+                    trigger: stat,
+                    start: "top 85%",
+                    onEnter: () => {
+                        let obj = { value: 0 }; // Use a generic object for tweening
+                        gsap.to(obj, {
+                            value: numValue,
+                            duration: 2,
+                            ease: "power2.out",
+                            onUpdate: function() {
+                                if (isPercentage) {
+                                    numberElement.textContent = Math.round(obj.value) + '%';
+                                } else if (finalValue.includes('+')) {
+                                    numberElement.textContent = Math.round(obj.value) + '+';
+                                } else if (finalValue.includes('.')) {
+                                    // Handle decimals
+                                    numberElement.textContent = obj.value.toFixed(1);
+                                } else {
+                                    numberElement.textContent = Math.round(obj.value);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+
+            // // Testimonial cards animation
+            // gsap.utils.toArray('.testimonial-card').forEach((card, index) => {
+            //     gsap.from(card, {
+            //         scrollTrigger: {
+            //             trigger: card,
+            //             start: "top 85%",
+            //             end: "bottom 15%",
+            //             toggleActions: "play none none reverse"
+            //         },
+            //         duration: 1,
+            //         y: 100,
+            //         opacity: 0,
+            //         rotationX: -15,
+            //         ease: "power2.out",
+            //         delay: (index % 3) * 0.15
+            //     });
+
+            //     // Hover effect
+            //     card.addEventListener('mouseenter', () => {
+            //         gsap.to(card, {
+            //             scale: 1.05,
+            //             rotationY: 5,
+            //             duration: 0.3,
+            //             ease: "power2.out"
+            //         });
+            //     });
+
+            //     card.addEventListener('mouseleave', () => {
+            //         gsap.to(card, {
+            //             scale: 1,
+            //             rotationY: 0,
+            //             duration: 0.3,
+            //             ease: "power2.out"
+            //         });
+            //     });
+            // });
+
+            // // Section titles animation
+            // gsap.utils.toArray('.section-title').forEach(title => {
+            //     gsap.from(title, {
+            //         scrollTrigger: {
+            //             trigger: title,
+            //             start: "top 80%",
+            //             end: "bottom 20%",
+            //             toggleActions: "play none none reverse"
+            //         },
+            //         duration: 1,
+            //         y: 50,
+            //         opacity: 0,
+            //         ease: "power2.out"
+            //     });
+            // });
+
+            // // Video cards animation
+            // gsap.utils.toArray('.video-card').forEach((card, index) => {
+            //     gsap.from(card, {
+            //         scrollTrigger: {
+            //             trigger: card,
+            //             start: "top 85%",
+            //             end: "bottom 15%",
+            //             toggleActions: "play none none reverse"
+            //         },
+            //         duration: 1,
+            //         x: index % 2 === 0 ? -100 : 100,
+            //         opacity: 0,
+            //         ease: "power2.out",
+            //         delay: index * 0.2
+            //     });
+
+            //     // Play button hover animation
+            //     const playBtn = card.querySelector('.play-button');
+            //     playBtn.addEventListener('mouseenter', () => {
+            //         gsap.to(playBtn, {
+            //             scale: 1.2,
+            //             rotation: 360,
+            //             duration: 0.4,
+            //             ease: "back.out(1.7)"
+            //         });
+            //     });
+
+            //     playBtn.addEventListener('mouseleave', () => {
+            //         gsap.to(playBtn, {
+            //             scale: 1,
+            //             rotation: 0,
+            //             duration: 0.3,
+            //             ease: "power2.out"
+            //         });
+            //     });
+            // });
+
+            // // CTA section animation
+            // gsap.from(".cta-section h2", {
+            //     scrollTrigger: {
+            //         trigger: ".cta-section",
+            //         start: "top 80%",
+            //         end: "bottom 20%",
+            //         toggleActions: "play none none reverse"
+            //     },
+            //     duration: 1,
+            //     y: 50,
+            //     opacity: 0,
+            //     ease: "power2.out"
+            // });
+
+            // gsap.from(".cta-section p", {
+            //     scrollTrigger: {
+            //         trigger: ".cta-section",
+            //         start: "top 80%",
+            //         end: "bottom 20%",
+            //         toggleActions: "play none none reverse"
+            //     },
+            //     duration: 1,
+            //     y: 30,
+            //     opacity: 0,
+            //     ease: "power2.out",
+            //     delay: 0.2
+            // });
+
+            // gsap.from(".cta-button", {
+            //     scrollTrigger: {
+            //         trigger: ".cta-section",
+            //         start: "top 80%",
+            //         end: "bottom 20%",
+            //         toggleActions: "play none none reverse"
+            //     },
+            //     duration: 1,
+            //     scale: 0,
+            //     opacity: 0,
+            //     ease: "back.out(1.7)",
+            //     delay: 0.4
+            // });
+
+            // // Floating animation for avatars
+            // gsap.utils.toArray('.testimonial-avatar').forEach(avatar => {
+            //     gsap.to(avatar, {
+            //         y: -10,
+            //         duration: 2,
+            //         ease: "power1.inOut",
+            //         yoyo: true,
+            //         repeat: -1,
+            //         delay: Math.random() * 2
+            //     });
+            // });
+
+            // // Stars animation
+            // gsap.utils.toArray('.testimonial-stars').forEach(stars => {
+            //     const starIcons = stars.querySelectorAll('i');
+                
+            //     ScrollTrigger.create({
+            //         trigger: stars,
+            //         start: "top 85%",
+            //         onEnter: () => {
+            //             gsap.from(starIcons, {
+            //                 scale: 0,
+            //                 opacity: 0,
+            //                 rotation: 180,
+            //                 duration: 0.5,
+            //                 stagger: 0.1,
+            //                 ease: "back.out(1.7)"
+            //             });
+            //         }
+            //     });
+            // });
+
+            // // Quote icon pulse animation
+            // gsap.utils.toArray('.quote-icon').forEach(icon => {
+            //     gsap.to(icon, {
+            //         scale: 1.2,
+            //         opacity: 0.2,
+            //         duration: 2,
+            //         ease: "power1.inOut",
+            //         yoyo: true,
+            //         repeat: -1
+            //     });
+            // });
+
+            // // Parallax effect for hero
+            // gsap.to(".hero", {
+            //     yPercent: -20,
+            //     ease: "none",
+            //     scrollTrigger: {
+            //         trigger: ".hero",
+            //         start: "top bottom",
+            //         end: "bottom top",
+            //         scrub: 1
+            //     }
+            // });
+
+            // Magnetic effect for CTA button
+            const ctaButton = document.querySelector('.cta-button');
+            ctaButton.addEventListener('mousemove', (e) => {
+                const rect = ctaButton.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(ctaButton, {
+                    x: x * 0.3,
+                    y: y * 0.3,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            ctaButton.addEventListener('mouseleave', () => {
+                gsap.to(ctaButton, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+
+            // Smooth scroll for navigation links
+            gsap.utils.toArray('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        gsap.to(window, {
+                            duration: 1,
+                            scrollTo: {
+                                y: target,
+                                offsetY: 80 // Offset for the fixed header
+                            },
+                            ease: "power2.inOut"
+                        });
+                    }
+                });
+            });
+
+            // Active navigation highlighting
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('section[id]'); // Only select sections with an ID
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= (sectionTop - 200)) { // Adjusted offset
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').endsWith(current)) { // Check if href ends with the ID
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Also update mobile nav links
+                const mobileNavLinks = document.querySelectorAll('.nav-primary .nav-menu a');
+                mobileNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').endsWith(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Text reveal animation for testimonial content
+            gsap.utils.toArray('.testimonial-text').forEach(text => {
+                gsap.from(text, {
+                    scrollTrigger: {
+                        trigger: text,
+                        start: "top 90%",
+                        end: "bottom 10%",
+                        toggleActions: "play none none none"
+                    },
+                    duration: 1,
+                    opacity: 0,
+                    y: 20,
+                    ease: "power2.out"
+                });
+            });
+
+            // Page load animation
+            gsap.from("body", {
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+
+        // Intersection Observer for additional effects
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.testimonial-card, .stat-item, .video-card').forEach(el => {
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>

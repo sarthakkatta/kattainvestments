@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Katta Investments</title>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            /* Give header a consistent height */
+            min-height: 70px; 
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6b35;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 200px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0; /* Add padding for hover effect */
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: #ff6b35;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001; /* Above nav menu */
+        }
+
+        .hamburger span {
+            width: 2rem;
+            height: 0.25rem;
+            background: #333;
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
+        }
+        
+        /* Hamburger 'X' animation */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            /* Add padding top to account for fixed header */
+            padding-top: 80px;
+        }
+
+        .hero-section h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* margin-top: 50px; Removed, using padding-top on parent */
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .main-content {
+            /* Changed from 2-column grid to flex for centering */
+            display: flex;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .contact-form-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: translateX(-50px);
+            /* Added width constraints as per user request */
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            background: #f8f9fa;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: #e74c3c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.4);
+        }
+
+        .visual-section {
+            opacity: 0;
+            transform: translateX(50px);
+            /* display: flex; */ /* Changed to none */
+            flex-direction: column;
+            gap: 30px;
+            display: none; /* Hide this section as per user's layout request */
+        }
+
+        .investment-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+
+        .investment-image:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .professional-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+
+        .professional-image:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        
+
+        .contact-methods {
+            opacity: 0;
+            transform: translateY(30px);
+            background: #f1f3f4;
+            padding: 60px 40px;
+            border-radius: 30px;
+            margin-top: 60px;
+        }
+
+        .contact-methods h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-option {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            /* Added for better responsive wrapping */
+            flex-basis: 250px;
+            flex-grow: 1;
+        }
+
+        .contact-option:hover {
+            background: #f8f9fa;
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-color: #e74c3c;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); }
+        .call { background: linear-gradient(135deg, #007bff, #0056b3); }
+        .mail { background: linear-gradient(135deg, #dc3545, #c82333); }
+
+        .contact-option h3 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-option p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 80px;
+            color: #333;
+            position: relative;
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .location-info h3 {
+            font-size: 1.5rem;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .location-info p {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .map-container {
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            /* Removed fixed width */
+            width: 100%; 
+        }
+
+        /* Responsive iframe */
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Tablet & Mobile Navigation */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Start off-screen */
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                transition: right 0.5s ease-in-out;
+            }
+
+            .nav-menu.active {
+                right: 0; /* Slide in */
+            }
+
+            .nav-menu li a {
+                font-size: 1.5rem;
+                color: #333;
+            }
+            
+            .nav-menu li a:hover,
+            .nav-menu li a.active {
+                color: #ff6b35;
+                border-bottom: 2px solid #ff6b35;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo img {
+                width: 150px; /* Smaller logo on mobile */
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 100px; /* More space for header */
+                margin-bottom: 40px;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                /* grid-template-columns: 1fr; */ /* No longer needed */
+                gap: 40px;
+            }
+
+            /* Contact options will stack naturally due to flex-wrap */
+            .contact-options {
+                gap: 20px;
+                flex-direction: column; /* Explicitly stack them */
+            }
+
+            .contact-option {
+                flex-basis: 100%; /* Full width on mobile */
+            }
+            
+            .contact-methods {
+                padding: 40px 20px;
+            }
+            
+            .contact-methods h2 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 40px 15px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 50px;
+            }
+            
+            .location-section {
+                padding: 60px 0;
+            }
+            
+            .location-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .map-container {
+                height: 300px; /* Adjust map height for mobile */
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                 <img style="width: 200px;" src="logo.jpg" alt="Katta Investments Logo">
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index4.html">Home</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#Contact" class="active">Contact Us!</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                </ul>
+            </nav>
+            <!-- Add Hamburger Button -->
+            <button class="hamburger" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 60px; height: 60px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 40px; height: 40px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; top: 80%; left: 20%; animation-delay: 4s;"></div>
+        <div class="floating-element" style="width: 30px; height: 30px; top: 30%; left: 70%; animation-delay: 1s;"></div>
+    </div>
+
+    <div class="container">
+        <section class="hero-section">
+            <h1>Contact Us</h1>
+            <p>Get in touch with Katta Investments for expert financial services and personalized investment solutions today!</p>
+        </section>
+
+        <div class="main-content">
+            <div class="contact-form-section">
+                <div class="success-message" id="successMessage">
+                    Thank you! Your message has been sent successfully. We'll get back to you soon.
+                </div>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="firstName">Your First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Enter your first name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Your Email Address*</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message*</label>
+                        <textarea id="message" name="message" class="form-control" placeholder="Type your message here" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Your Inquiry</button>
+                </form>
+            </div>
+            
+            <!-- This visual-section is now hidden on all screen sizes 
+                 to match the requested layout -->
+            <div class="visual-section">
+                <!-- Example of what might go here -->
+                <!-- <img src="placeholder.jpg" alt="Investment visual" class="investment-image"> -->
+                <!-- <img src="placeholder2.jpg" alt="Professional team" class="professional-image"> -->
+            </div>
+        </div>
+
+        <section class="contact-methods">
+            <h2>Easy to Contact Us!</h2>
+            <div class="contact-options">
+                <div class="contact-option" onclick="openWhatsApp()">
+                    <div class="contact-icon whatsapp">📱</div>
+                    <h3>WhatsApp</h3>
+                    <p>Quick responses and instant communication</p>
+                </div>
+                
+                <div class="contact-option" onclick="makeCall()">
+                    <div class="contact-icon call">📞</div>
+                    <h3>Call</h3>
+                    <p>Direct line for immediate assistance</p>
+                </div>
+                
+                <div class="contact-option" onclick="sendEmail()">
+                    <div class="contact-icon mail">✉️</div>
+                    <h3>Mail</h3>
+                    <p>Detailed inquiries and formal communication</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="location-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Our <span style="color: #ff6b35;">Location</span></h2>
+            <div class="location-content">
+                <div class="location-info">
+                    <p>Katta Investments is located in Jaipur, Rajasthan, providing expert financial services tailored to meet your investment needs.</p>
+                    <h3>Jaipur</h3>
+                    <p>Elegant Ram Ratna, Swej Farm</p>
+                    <h3>Hours</h3>
+                    <p>9 AM - 6 PM</p>
+                </div>
+                <div class="map-container">
+                    <!-- Removed fixed width/height attributes, now controlled by CSS -->
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d890.3474263030357!2d75.8116913!3d26.7957173!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5d52b146349%3A0x8a9cd4684bbec61!2sElegant%20Ram%20Ratna!5e0!3m2!1sen!2sin!4v1754643159516!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Investments</h3>
+                    <p>Professional financial services for smart investments.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>CONTACT</h3>
+                    <p>+91-8750056566</p>
+                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9a2a8bdbda8a0a7bfacbabda4aca7bdba89aea4a8a0a5e7aaa6a4">kattainvestments@gmail.com</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>SUPPORT</h3>
+                    <a href="privacy.html">PRIVACY POLICY</a><br>
+                    <a href="faqs.html">FAQ</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025. All rights reserved.</p>
+                <p>@marketed by Sarthak Marketing</p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initialize animations when page loads
+        window.addEventListener('load', function() {
+            initializeAnimations();
+            setupFormHandling();
+            setupMobileMenu(); // Setup the new mobile menu
+        });
+
+        function initializeAnimations() {
+ 
+            gsap.fromTo(".nav-menu li", 
+    { opacity: 0, y: -30 },
+    { duration: 0.6, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out", delay: 1.2 }
+  );
+
+  gsap.fromTo(".logo img", 
+    { opacity: 0, y: -30 },
+    { duration: 0.6, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out", delay: 1.2 }
+  );
+
+            // Hero section animation
+            gsap.to('.hero-section', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power3.out'
+            });
+
+            // Main content animations with ScrollTrigger
+            gsap.to('.contact-form-section', {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.contact-form-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            gsap.to('.visual-section', {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                delay: 0.2,
+                scrollTrigger: {
+                    trigger: '.visual-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            // Contact methods animation
+            gsap.to('.contact-methods', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.contact-methods',
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            // Stagger animation for contact options
+            gsap.from('.contact-option', {
+                opacity: 1,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.contact-options',
+                    start: 'top 90%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            // Form elements stagger animation
+            gsap.from('.form-group, .submit-btn', {
+                opacity: 1,
+                y: 20,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.contact-form-section',
+                    start: 'top 70%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            // Stats items animation
+            gsap.from('.stat-item', {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'back.out(1.7)',
+                scrollTrigger: {
+                    trigger: '.stats-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+
+            // Parallax effect for floating elements
+            gsap.to('.floating-element', {
+                y: -100,
+                rotation: 360,
+                duration: 10,
+                repeat: -1,
+                ease: 'none',
+                stagger: {
+                    each: 2,
+                    repeat: -1
+                }
+            });
+
+            // Form input focus animations
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener('focus', function() {
+                    gsap.to(this, {
+                        scale: 1.02,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                input.addEventListener('blur', function() {
+                    gsap.to(this, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+        }
+
+        // ── EmailJS Setup ──────────────────────────────────────────────────────
+        // STEP 1: Go to https://www.emailjs.com and create a FREE account
+        // STEP 2: Add a Gmail service → copy your SERVICE ID below
+        // STEP 3: Create an Email Template with these variables:
+        //           {{from_name}}, {{from_email}}, {{message}}
+        //         Set "To Email" in the template to: kattainvestments@gmail.com
+        //         Copy your TEMPLATE ID below
+        // STEP 4: Go to Account → API Keys → copy your PUBLIC KEY below
+        const EMAILJS_SERVICE_ID  = 'service_ts65ci4';   // e.g. 'service_abc123'
+        const EMAILJS_TEMPLATE_ID = 'template_3n0arap';  // e.g. 'template_xyz789'
+        const EMAILJS_PUBLIC_KEY  = 'O2s1GfcISUrLB_LZR';   // e.g. 'abcDEF123456'
+
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+        // ──────────────────────────────────────────────────────────────────────
+
+        function setupFormHandling() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const submitBtn = document.querySelector('.submit-btn');
+                    const successMessage = document.getElementById('successMessage');
+
+                    // Button press animation
+                    gsap.to(submitBtn, {
+                        scale: 0.95, duration: 0.1,
+                        yoyo: true, repeat: 1, ease: 'power2.inOut'
+                    });
+
+                    // Disable button while sending
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+
+                    // Build template params — must match your EmailJS template variables
+                    const templateParams = {
+                        from_name:  document.getElementById('firstName').value,
+                        from_email: document.getElementById('email').value,
+                        message:    document.getElementById('message').value,
+                        to_email:   'kattainvestments@gmail.com'
+                    };
+
+                    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+                        .then(() => {
+                            // Success
+                            successMessage.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
+                            successMessage.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                            successMessage.style.display = 'block';
+
+                            gsap.from(successMessage, {
+                                opacity: 0, y: -20, duration: 0.5, ease: 'power3.out'
+                            });
+
+                            contactForm.reset();
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Submit Your Inquiry';
+
+                            setTimeout(() => {
+                                gsap.to(successMessage, {
+                                    opacity: 0, y: -20, duration: 0.5, ease: 'power3.out',
+                                    onComplete: () => { successMessage.style.display = 'none'; gsap.set(successMessage, { opacity: 1, y: 0 }); }
+                                });
+                            }, 5000);
+                        })
+                        .catch((error) => {
+                            // Error
+                            successMessage.textContent = 'Oops! Something went wrong. Please try again or contact us directly.';
+                            successMessage.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
+                            successMessage.style.display = 'block';
+
+                            gsap.from(successMessage, {
+                                opacity: 0, y: -20, duration: 0.5, ease: 'power3.out'
+                            });
+
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Submit Your Inquiry';
+                            console.error('EmailJS error:', error);
+                        });
+                });
+            }
+        }
+        
+        // --- NEW JAVASCRIPT FOR MOBILE MENU ---
+        function setupMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu when a link is clicked (good for single-page anchors)
+                document.querySelectorAll('.nav-menu li a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        // Only remove active class if the menu is actually open
+                        if (hamburger.classList.contains('active')) {
+                            hamburger.classList.remove('active');
+                            navMenu.classList.remove('active');
+                        }
+                    });
+                });
+            }
+        }
+        // --- END OF NEW JAVASCRIPT ---
+
+
+        // Contact methods functions
+        function openWhatsApp() {
+            // Your WhatsApp number with country code (91) but no '+'
+            window.open('https://wa.me/918750056566', '_blank');
+        }
+
+        function makeCall() {
+            // Your phone number with the '+' and country code (91)
+            window.location.href = 'tel:+918750056566';
+        }
+
+        function sendEmail() {
+            // Replace with actual email
+            window.open('https://mail.google.com/mail/?view=cm&fs=1&to=kattainvestments@gmail.com', '_blank');
+        }
+
+        // Add smooth scrolling behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Cursor following effect for desktop
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', function(e) {
+                gsap.to('.floating-element', {
+                    x: (e.clientX - window.innerWidth / 2) * 0.02,
+                    y: (e.clientY - window.innerHeight / 2) * 0.02,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+            });
+        }
+    </script>
+</body>
+</html>

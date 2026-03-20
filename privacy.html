@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Katta Investments</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Prevent scroll when mobile nav is open */
+        body.nav-open {
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            min-height: 70px; /* Set a min-height for consistency */
+        }
+
+        .logo img {
+            width: 200px;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: #ff6b35;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        /* --- START: Mobile Navigation Styles --- */
+        .nav-toggle {
+            display: none; /* Hidden on desktop */
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1002;
+            position: relative;
+        }
+
+        .hamburger {
+            display: block;
+            position: relative;
+            width: 1.8em;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: transform 0.3s ease, top 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger::before { top: -0.6em; }
+        .hamburger::after { bottom: -0.6em; }
+
+        /* Animate hamburger to an 'X' */
+        .nav-open .hamburger { background: transparent; }
+        .nav-open .hamburger::before { top: 0; transform: rotate(45deg); }
+        .nav-open .hamburger::after { bottom: 0; transform: rotate(-45deg); }
+        /* --- END: Mobile Nav Styles --- */
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+
+        .privacy-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.08),
+                0 8px 25px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .privacy-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f5a843, #b57328, #986e49);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .floating-elements { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .floating-circle { position: absolute; border-radius: 50%; background: linear-gradient(135deg, rgba(234, 185, 72, 0.99), rgba(234, 119, 26, 0.1)); animation: float 6s ease-in-out infinite; }
+        .floating-circle:nth-child(1) { width: 80px; height: 80px; top: 10%; right: 10%; animation-delay: 0s; }
+        .floating-circle:nth-child(2) { width: 120px; height: 120px; bottom: 15%; left: 8%; animation-delay: 2s; }
+        .floating-circle:nth-child(3) { width: 60px; height: 60px; top: 60%; right: 15%; animation-delay: 4s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
+
+        .title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #f18007, #f6ae3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .section { margin-bottom: 50px; opacity: 0; transform: translateY(30px); }
+        .section-title { font-size: 1.8rem; font-weight: 600; color: #2d3748; margin-bottom: 25px; position: relative; padding-left: 20px; }
+        .section-title::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 25px; background: linear-gradient(135deg, #f9930c, #eaac5a); border-radius: 2px; }
+        .section-content { font-size: 1.1rem; color: #685c4a; margin-bottom: 20px; text-align: justify; }
+        .highlight { background: linear-gradient(120deg, rgba(238, 146, 41, 0.1) 0%, rgba(236, 109, 25, 0.1) 100%); padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+        .text-highlight { position: relative; display: inline; }
+        .text-highlight::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 3px; background: linear-gradient(90deg, #f08b26, #ffb969); transition: width 0.8s ease; border-radius: 2px; }
+        .text-highlight.highlighted::after { width: 100%; }
+
+        .rights-list { list-style: none; padding-left: 0; margin-top: 20px; }
+        .rights-list li { padding: 12px 0; padding-left: 40px; position: relative; font-size: 1.1rem; color: #4a5568; border-bottom: 1px solid rgb(233, 125, 43); transition: all 0.3s ease; }
+        .rights-list li:hover { padding-left: 50px; color: #667eea; }
+        .rights-list li::before { content: '●'; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #f2961e; font-size: 1.2rem; transition: all 0.3s ease; }
+        .rights-list li:hover::before { color: #f09c35; transform: translateY(-50%) scale(1.2); }
+
+        .contact-info { background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); padding: 30px; border-radius: 16px; border: 1px solid rgba(102, 126, 234, 0.2); text-align: center; margin-top: 40px; }
+        .contact-email { color: #e58830; text-decoration: none; font-weight: 600; font-size: 1.2rem; transition: all 0.3s ease; display: inline-block; }
+        .contact-email:hover { color: #764ba2; transform: translateY(-2px); text-shadow: 0 4px 8px rgba(102, 126, 234, 0.3); }
+
+        .scroll-indicator { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2, #f093fb); transform-origin: left; transform: scaleX(0); z-index: 1000; }
+
+        /* Footer */
+        .footer { background: #333; color: white; padding: 3rem 1rem 1rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-bottom: 2rem; max-width: 1200px; margin-inline: auto; }
+        .footer-section h3 { margin-bottom: 1rem; }
+        .footer-section p, .footer-section a { color: #ccc; text-decoration: none; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: #ff6b35; }
+        .footer-bottom { border-top: 1px solid #555; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin-inline: auto; }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 120px 15px 40px; /* Adjust top padding for fixed header */
+            }
+
+            .logo img {
+                width: 160px;
+            }
+
+            /* --- START: Mobile Nav Display Rules --- */
+            .nav-toggle { display: block; }
+            .nav-menu { display: none; }
+            .nav-primary {
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(8px);
+                transform: translateX(100%);
+                transition: transform 0.3s ease-out;
+                z-index: 1001;
+                display: flex; justify-content: center; align-items: center;
+            }
+            .nav-open .nav-primary { transform: translateX(0); }
+            .nav-open .nav-primary .nav-menu {
+                display: flex; flex-direction: column; list-style: none;
+                padding: 0; margin: 0; gap: 2.5rem; text-align: center;
+            }
+            .nav-open .nav-primary .nav-menu li a { font-size: 1.5rem; color: #333; font-weight: bold; padding: 0.5rem 1rem; }
+            /* --- END: Mobile Nav Display Rules --- */
+            
+            .privacy-card { padding: 40px 30px; border-radius: 20px; margin-top: 0; }
+            .title { font-size: 2.4rem; margin-bottom: 40px; }
+            .section-title { font-size: 1.5rem; }
+            .section-content { font-size: 1rem; }
+            .floating-circle { display: none; }
+
+            .footer-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+        
+        @media (max-width: 480px) {
+            .privacy-card { padding: 30px 20px; }
+            .title { font-size: 2rem; }
+            .logo img { width: 180px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator"></div>
+    <div class="floating-elements"><div class="floating-circle"></div><div class="floating-circle"></div><div class="floating-circle"></div></div>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                 <img style="width: 200px;" src="logo.jpg" alt="">
+            </div>
+            <nav class="nav-primary">
+                <ul class="nav-menu">
+                    <li><a href="index4.html">Home</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us!</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="privacy-card">
+            <h1 class="title">Privacy Policy</h1>
+            
+            <div class="section intro-section">
+                <p class="section-content"><span class="highlight">Katta investments</span> website is owned by <span class="text-highlight">katta investments</span>, which is a <span class="word-highlight">data controller</span> of your personal data.</p>
+                <p class="section-content">We have adopted this <span class="text-highlight">Privacy Policy</span>, which determines how we are processing the information collected by <span class="word-highlight">Katta investments</span>, which also provides the reasons why we must collect certain <span class="text-highlight">personal data</span> about you. Therefore, you must read this Privacy Policy before using Katta investments website.</p>
+                <p class="section-content">We take care of your <span class="text-highlight">personal data</span> and undertake to guarantee its <span class="word-highlight">confidentiality and security</span>.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Personal information we collect:</h2>
+                <p class="section-content">When you visit the <span class="word-highlight">Katta investments</span>, we automatically collect certain information about your device, including information about your <span class="text-highlight">web browser</span>, <span class="text-highlight">IP address</span>, time zone, and some of the installed cookies on your device. Additionally, as you browse the Site, we collect information about the individual <span class="word-highlight">web pages or products</span> you view, what websites or search terms referred you to the Site, and how you interact with the Site. We refer to this automatically-collected information as <span class="highlight">"Device Information."</span> Moreover, we might collect the <span class="text-highlight">personal data</span> you provide to us (including but not limited to Name, Surname, Address, payment information, etc.) during registration to be able to fulfill the agreement.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Why do we process your data?</h2>
+                <p class="section-content">Our top priority is <span class="text-highlight">customer data security</span>, and, as such, we may process only <span class="word-highlight">minimal user data</span>, only as much as it is absolutely necessary to maintain the website. Information collected automatically is used only to identify potential cases of <span class="text-highlight">abuse</span> and establish <span class="word-highlight">statistical information</span> regarding website usage. This statistical information is not otherwise aggregated in such a way that it would identify any particular user of the system.</p>
+                <p class="section-content">You can visit the website without telling us who you are or revealing any information, by which someone could identify you as a specific, identifiable individual. If, however, you wish to use some of the website's features, or you wish to receive our <span class="text-highlight">newsletter</span> or provide other details by filling a form, you may provide <span class="word-highlight">personal data</span> to us, such as your email, first name, last name, city of residence, organization, telephone number. You can choose not to provide us with your personal data, but then you may not be able to take advantage of some of the website's features. For example, you won't be able to receive our Newsletter or contact us directly from the website. Users who are uncertain about what information is mandatory are welcome to contact us via <a href="mailto:ronakrk99@gmail.com" class="contact-email">ronakrk99@gmail.com</a>.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Your rights:</h2>
+                <p class="section-content">If you are a <span class="text-highlight">European resident</span>, you have the following rights related to your <span class="word-highlight">personal data</span>:</p>
+                <ul class="rights-list">
+                    <li>The right to be <span class="text-highlight">informed</span>.</li>
+                    <li>The right of <span class="word-highlight">access</span>.</li>
+                    <li>The right to <span class="text-highlight">rectification</span>.</li>
+                    <li>The right to <span class="word-highlight">erasure</span>.</li>
+                    <li>The right to restrict <span class="text-highlight">processing</span>.</li>
+                    <li>The right to data <span class="word-highlight">portability</span>.</li>
+                    <li>The right to <span class="text-highlight">object</span>.</li>
+                    <li>Rights in relation to <span class="word-highlight">automated decision-making</span> and profiling.</li>
+                </ul>
+                <p class="section-content">If you would like to exercise this right, please contact us through the <span class="text-highlight">contact information</span> below.</p>
+                <p class="section-content">Additionally, if you are a European resident, we note that we are processing your information in order to fulfill <span class="word-highlight">contracts</span> we might have with you (for example, if you make an order through the Site), or otherwise to pursue our <span class="text-highlight">legitimate business interests</span> listed above. Additionally, please note that your information might be transferred outside of Europe, including <span class="word-highlight">Canada and the United States</span>.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Links to other websites:</h2>
+                <p class="section-content">Our website may contain links to other websites that are not owned or controlled by us. Please be aware that we are not responsible for such other websites or third parties' privacy practices. We encourage you to be aware when you leave our website and read the privacy statements of each website that may collect personal information.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Information security:</h2>
+                <p class="section-content">We secure information you provide on computer servers in a controlled, secure environment, protected from unauthorized access, use, or disclosure. We keep reasonable administrative, technical, and physical safeguards to protect against unauthorized access, use, modification, and personal data disclosure in its control and custody. However, no data transmission over the Internet or wireless network can be guaranteed.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Legal disclosure:</h2>
+                <p class="section-content">We will disclose any information we collect, use or receive if required or permitted by law, such as to comply with a subpoena or similar legal process, and when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Contact information:</h2>
+                <p class="section-content">If you would like to contact us to understand more about this Policy or wish to contact us concerning any matter relating to individual rights and your Personal Information, you may send an email to <a href="mailto:ronakrk99@gmail.com" class="contact-email">ronakrk99@gmail.com</a>.</p>
+            </div>
+
+            <div class="contact-info">
+                <p style="margin-bottom: 15px; color: #4a5568; font-size: 1.1rem;">Have questions about our privacy policy?</p>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kattainvestments@gmail.com', '_blank" class="contact-email">kattainvestments@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <div class="footer-content">
+                <div class="footer-section"><h3>Investments</h3><p>Professional financial services for smart investments.</p></div>
+                <div class="footer-section"><h3>CONTACT</h3><p>+91-8750056566</p><p>kattainvestments@gmail.com</p></div>
+                <div class="footer-section"><h3>SUPPORT</h3><a href="privacy.html" class="active">PRIVACY POLICY</a><br><a href="faqs.html">FAQ</a></div>
+            </div>
+            <div class="footer-bottom"><p>© 2025. All rights reserved.</p><p>@marketed by Sarthak Marketing</p></div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // --- START: Mobile Navigation Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.nav-toggle');
+            navToggle.addEventListener('click', () => {
+                document.body.classList.toggle('nav-open');
+            });
+
+            // Close menu when a link is clicked (good for single-page apps or smooth scroll)
+            document.querySelectorAll('.nav-primary .nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.body.classList.remove('nav-open');
+                });
+            });
+            
+            // Re-initialize animations after DOM is ready
+            initAnimations();
+        });
+        // --- END: Mobile Navigation Logic ---
+
+
+        gsap.fromTo(".nav-menu li", { opacity: 0, y: -30 }, { duration: 0.6, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out", delay: 1.2 });
+        gsap.fromTo(".logo img", { opacity: 0, y: -30 }, { duration: 0.6, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out", delay: 1.2 });
+
+        function initAnimations() {
+            gsap.to('.title', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.3 });
+            gsap.utils.toArray('.text-highlight').forEach((highlight) => {
+                gsap.to(highlight, { scrollTrigger: { trigger: highlight, start: 'top 80%', onEnter: () => highlight.classList.add('highlighted'), onLeaveBack: () => highlight.classList.remove('highlighted') } });
+            });
+            gsap.utils.toArray('.word-highlight').forEach((highlight, index) => {
+                gsap.to(highlight, { scrollTrigger: { trigger: highlight, start: 'top 75%', onEnter: () => { setTimeout(() => { highlight.classList.add('highlighted'); }, index * 200); }, onLeaveBack: () => highlight.classList.remove('highlighted') } });
+            });
+            gsap.utils.toArray('.section').forEach((section) => {
+                gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: section, start: 'top 85%', end: 'bottom 20%', toggleActions: 'play none none reverse' } });
+            });
+            gsap.utils.toArray('.rights-list li').forEach((item, index) => {
+                gsap.fromTo(item, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', delay: index * 0.1, scrollTrigger: { trigger: item, start: 'top 90%', toggleActions: 'play none none reverse' } });
+            });
+            gsap.fromTo('.contact-info', { opacity: 0, scale: 0.9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1, ease: 'back.out(1.7)', scrollTrigger: { trigger: '.contact-info', start: 'top 85%', toggleActions: 'play none none reverse' } });
+            gsap.utils.toArray('.floating-circle').forEach((circle) => {
+                gsap.to(circle, { y: -100, rotation: 360, duration: 1, ease: 'none', scrollTrigger: { trigger: '.privacy-card', start: 'top bottom', end: 'bottom top', scrub: true } });
+            });
+            gsap.to('.scroll-indicator', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: true } });
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) { gsap.to(window, { duration: 1, scrollTo: target, ease: 'power2.inOut' }); }
+                });
+            });
+            document.querySelectorAll('.contact-email').forEach(email => {
+                email.addEventListener('mouseenter', () => { gsap.to(email, { scale: 1.05, duration: 0.3, ease: 'power2.out' }); });
+                email.addEventListener('mouseleave', () => { gsap.to(email, { scale: 1, duration: 0.3, ease: 'power2.out' }); });
+            });
+            gsap.fromTo('.privacy-card', { opacity: 0, y: 50, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power3.out' });
+        }
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
